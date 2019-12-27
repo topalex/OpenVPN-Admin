@@ -57,9 +57,32 @@
             $query_filters_existing[] = $unsanitized_filter_key;
          }
       }
+      
+      $order = 'log_id desc';
+      
+      $allowed_sort_columns = [
+        'log_id',
+        'user_id',
+        'log_trusted_ip',
+        'log_trusted_port',
+        'log_remote_ip',
+        'log_remote_port',
+        'log_start_time',
+        'log_end_time',
+        'log_received',
+        'log_send'
+      ];
+      $allowed_sort_orders = [
+        'asc',
+        'desc'
+      ];
+      
+      if (isset($_GET['sort'], $_GET['order']) && in_array($_GET['sort'], $allowed_sort_columns) && in_array($_GET['order'], $allowed_sort_orders)) {
+        $order = $_GET['sort'] . ' ' . $_GET['order'];
+      }
 
       // Select the logs
-      $req_string = "SELECT *, (SELECT COUNT(*) FROM log $where) AS nb FROM log $where ORDER BY log_id DESC $page";
+      $req_string = "SELECT *, (SELECT COUNT(*) FROM log $where) AS nb FROM log $where ORDER BY $order $page";
       $req = $bdd->prepare($req_string);
 
       // dynamically bind the params

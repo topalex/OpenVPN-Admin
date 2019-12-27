@@ -17,7 +17,7 @@ $(function () {
   var gridsUrl = 'include/grids.php';
 
   function deleteFormatter() {
-    return "<span class='glyphicon glyphicon-remove action'></span";
+    return "<span class='glyphicon glyphicon-remove action'></span>";
   }
 
   function refreshTable($table) {
@@ -188,8 +188,7 @@ $(function () {
   // Bootstrap table definition
   $userTable.bootstrapTable({
     url: gridsUrl,
-    sortable: false,
-    checkboxHeader: false,
+    sortName: "user_id",
     queryParams: function (params) {
       params.select = 'user';
       return params;
@@ -197,18 +196,20 @@ $(function () {
     // Primary key
     idField: 'user_id',
     columns: [
-      { title: "ID", field: "user_id", editable: userEditable },
+      { title: "ID", field: "user_id", sortable: true, editable: userEditable },
       { title: "Pass", field: "user_pass", editable: userEditable },
-      { title: "Last Start Time", field: "user_last_start" },
-      { title: "Last End Time", field: "user_last_end" },
+      { title: "Last Start Time", field: "user_last_start", sortable: true },
+      { title: "Last End Time", field: "user_last_end", sortable: true },
       {
          title: "Online",
          field: "user_online",
+         sortable: true,
          formatter : LEDIndicatorFormatter
       },
       {
          title: "Enabled",
          field: "user_enable",
+         sortable: true,
          formatter : checkFormatter,
          events: {
             'click input': function (e, value, row) {
@@ -216,8 +217,8 @@ $(function () {
             }
          }
       },
-      { title: "Start Date", field: "user_start_date", editable: userDateEditable },
-      { title: "End Date", field: "user_end_date", editable: userDateEditable },
+      { title: "Start Date", field: "user_start_date", sortable: true, editable: userDateEditable },
+      { title: "End Date", field: "user_end_date", sortable: true, editable: userDateEditable },
       {
         title: 'Delete',
         field: "user_del",
@@ -247,7 +248,7 @@ $(function () {
   // Bootstrap table definition
   $adminTable.bootstrapTable({
     url: gridsUrl,
-    sortable: false,
+    sortName: "admin_id",
     queryParams: function (params) {
       params.select = 'admin';
       return params;
@@ -255,7 +256,7 @@ $(function () {
     // Primary key
     idField: 'admin_id',
     columns: [
-      { title: "ID", field: "admin_id", editable: adminEditable },
+      { title: "ID", field: "admin_id", sortable: true, editable: adminEditable },
       { title: "Pass", field: "admin_pass", editable: adminEditable },
       {
         title: 'Delete',
@@ -285,24 +286,27 @@ $(function () {
   // Bootstrap table definition
   $logTable.bootstrapTable({
     url: gridsUrl,
-    sortable: false,
+    sortName: "log_id",
+    sortOrder: "desc",
+    silentSort: false,
     sidePagination: 'server',
     pagination: true,
+    pageList: [10, 25, 50, 100, 200],
     queryParams: function (params) {
       params.select = 'log';
       return params;
     },
     columns: [
-      { title: "Log ID", field: "log_id" },
-      { title: "User ID", field: "user_id", filterControl : 'select' },
-      { title: "Trusted IP", field: "log_trusted_ip", filterControl : 'select' },
-      { title: "Trusted Port", field: "log_trusted_port", filterControl : 'select' },
-      { title: "Remote IP", field: "log_remote_ip", filterControl : 'select' },
-      { title: "Remote Port", field: "log_remote_port", filterControl : 'select' },
-      { title: "Start Time", field: "log_start_time" },
-      { title: "End Time", field: "log_end_time" },
-      { title: "Receveid", field: "log_received" },
-      { title: "Sent", field: "log_send" }
+      { title: "Log ID", field: "log_id", sortable: true },
+      { title: "User ID", field: "user_id", sortable: true, filterControl : 'select' },
+      { title: "Trusted IP", field: "log_trusted_ip", sortable: true, filterControl : 'select' },
+      { title: "Trusted Port", field: "log_trusted_port", sortable: true, filterControl : 'select' },
+      { title: "Remote IP", field: "log_remote_ip", sortable: true, filterControl : 'select' },
+      { title: "Remote Port", field: "log_remote_port", sortable: true, filterControl : 'select' },
+      { title: "Start Time", field: "log_start_time", sortable: true },
+      { title: "End Time", field: "log_end_time", sortable: true },
+      { title: "Receveid", field: "log_received", sortable: true },
+      { title: "Sent", field: "log_send", sortable: true }
     ]
   });
 
