@@ -21,9 +21,9 @@
         <div class="form-group">
           <label for="configuration_os">OS</label>
           <select name="configuration_os" id="configuration_os" class="form-control">
-            <option value="gnu_linux">GNU/Linux</option>
-            <option value="osx">OSX</option>
             <option value="windows">Windows</option>
+            <option value="osx">OSX</option>
+            <option value="gnu_linux">GNU/Linux</option>
           </select>
         </div>
 
