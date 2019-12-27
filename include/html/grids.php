@@ -140,7 +140,7 @@ function getHistory($cfg_file, $accordion_id, $open_first_history_tab = false) {
             </div>
             <div id="menu-1-2" class="tab-pane fade">
 
-               <textarea class="form-control" data-config-file="<?= $cfg_file='client-conf/osx-viscosity/client.conf' ?>" name="" id="" cols="30" rows="20"><?= file_get_contents($cfg_file) ?></textarea>
+               <textarea class="form-control" data-config-file="<?= $cfg_file='client-conf/osx/client.conf' ?>" name="" id="" cols="30" rows="20"><?= file_get_contents($cfg_file) ?></textarea>
                <?= getHistory($cfg_file, ++$accId) ?>
 
             </div>

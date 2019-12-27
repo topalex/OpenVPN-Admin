@@ -247,7 +247,7 @@ for file in $(find -name client.ovpn); do
 done
 
 # Copy ta.key inside the client-conf directory
-for directory in "./client-conf/gnu-linux/" "./client-conf/osx-viscosity/" "./client-conf/windows/"; do
+for directory in "./client-conf/gnu-linux/" "./client-conf/osx/" "./client-conf/windows/"; do
   cp "/etc/openvpn/"{ca.crt,ta.key} $directory
 done
 

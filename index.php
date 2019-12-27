@@ -23,8 +23,8 @@
       // Thanks http://stackoverflow.com/questions/4914750/how-to-zip-a-whole-folder-using-php
       if($_POST['configuration_os'] == "gnu_linux") {
         $conf_dir = 'gnu-linux';
-      } elseif($_POST['configuration_os'] == "osx_viscosity") {
-        $conf_dir = 'osx-viscosity';
+      } elseif($_POST['configuration_os'] == "osx") {
+        $conf_dir = 'osx';
       } else {
         $conf_dir = 'windows';
       }
