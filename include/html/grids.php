@@ -152,16 +152,12 @@ function getHistory($cfg_file, $accordion_id, $open_first_history_tab = false) {
 </div>
 
 <script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/modal.js"></script>
-<script src="vendor/bootstrap/js/tooltip.js"></script>
-<script src="vendor/bootstrap/js/tab.js"></script>
-<script src="vendor/bootstrap/js/collapse.js"></script>
-<script src="vendor/bootstrap/js/popover.js"></script>
+<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="vendor/bootstrap-table/dist/bootstrap-table.min.js"></script>
-<script src="vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<script src="vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="vendor/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js"></script>
 <script src="vendor/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-<script src="vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js"></script>
+<script src="vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="js/grids.js"></script>
 
 <script>
