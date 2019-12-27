@@ -189,6 +189,10 @@ $(function () {
   $userTable.bootstrapTable({
     url: gridsUrl,
     sortName: "user_id",
+    toolbar: $('#user-grid > h4'),
+    stickyHeader: true,
+    stickyHeaderOffsetLeft: '35px',
+    stickyHeaderOffsetRight: '35px',
     queryParams: function (params) {
       params.select = 'user';
       return params;
@@ -249,6 +253,10 @@ $(function () {
   $adminTable.bootstrapTable({
     url: gridsUrl,
     sortName: "admin_id",
+    toolbar: $('#admin-grid > h4'),
+    stickyHeader: true,
+    stickyHeaderOffsetLeft: '35px',
+    stickyHeaderOffsetRight: '35px',
     queryParams: function (params) {
       params.select = 'admin';
       return params;
@@ -288,6 +296,12 @@ $(function () {
     url: gridsUrl,
     sortName: "log_id",
     sortOrder: "desc",
+    toolbar: $('#log-grid > h4'),
+    showRefresh: true,
+    autoRefresh: true,
+    stickyHeader: true,
+    stickyHeaderOffsetLeft: '35px',
+    stickyHeaderOffsetRight: '35px',
     silentSort: false,
     sidePagination: 'server',
     pagination: true,

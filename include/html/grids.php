@@ -157,6 +157,8 @@ function getHistory($cfg_file, $accordion_id, $open_first_history_tab = false) {
 <script src="vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="vendor/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js"></script>
 <script src="vendor/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+<script src="vendor/bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script>
+<script src="vendor/bootstrap-table/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js"></script>
 <script src="vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="js/grids.js"></script>
 
