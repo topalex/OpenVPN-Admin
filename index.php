@@ -60,6 +60,7 @@
       //then send the headers to foce download the zip file
       header("Content-type: application/zip");
       header("Content-Disposition: attachment; filename=$archive_name");
+      header("Content-Length: " . filesize($archive_path));
       header("Pragma: no-cache");
       header("Expires: 0");
       readfile($archive_path);
