@@ -199,8 +199,8 @@ $(function () {
     columns: [
       { title: "ID", field: "user_id", editable: userEditable },
       { title: "Pass", field: "user_pass", editable: userEditable },
-      { title: "Mail", field: "user_mail", editable: userEditable },
-      { title: "Phone", field: "user_phone", editable: userEditable },
+      { title: "Last Start Time", field: "user_last_start" },
+      { title: "Last End Time", field: "user_last_end" },
       {
          title: "Online",
          field: "user_online",
