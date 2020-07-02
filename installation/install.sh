@@ -48,7 +48,7 @@ if ! grep -q "${group}" "/etc/group"; then
   exit
 fi
 
-base_path=$(dirname "${0}")
+base_path=$(dirname "$(readlink -f "${0}")")
 
 printf "\n################## Server information ##################\n"
 
@@ -97,7 +97,7 @@ if [[ -z $mysql_db_user ]]; then
   mysql_db_user="openvpn-admin"
 fi
 
-if ! echo "SHOW GRANTS FOR ${mysql_db_user}@localhost" | mysql -u root --password="${mysql_root_pass}" &>/dev/null; then
+if echo "SHOW GRANTS FOR ${mysql_db_user}@localhost" | mysql -u root --password="${mysql_root_pass}" &>/dev/null; then
   echo "MySQL user ${mysql_db_user} already exists."
   exit
 fi
@@ -183,6 +183,8 @@ openvpn --genkey --secret pki/ta.key
 
 printf "\n################## Setup OpenVPN ##################\n"
 
+cd "${base_path}" || exit
+
 # Copy certificates and the server configuration in the openvpn directory
 cp /etc/openvpn/easy-rsa/pki/{ca.crt,ta.key,issued/server.crt,private/server.key,dh.pem} "/etc/openvpn/"
 cp "${base_path}/server.conf" "/etc/openvpn/"
@@ -203,7 +205,7 @@ echo 1 >"/proc/sys/net/ipv4/ip_forward"
 echo "net.ipv4.ip_forward = 1" >>"/etc/sysctl.conf"
 
 # Get primary NIC device name
-primary_nic=$(route | grep '^default' | grep -o '[^ ]*$')
+primary_nic=$(ip r | grep '^default' | grep -Po '(?<=(dev )).*(?= proto)')
 
 # Iptables rules
 iptables -I FORWARD -i tun+ -j ACCEPT
@@ -228,20 +230,23 @@ chmod +x "/etc/openvpn/scripts/"{connect.sh,disconnect.sh,login.sh}
 
 # Configure MySQL in openvpn scripts
 {
+  echo '#!/bin/bash'
+  echo
   echo "USER='${mysql_db_user}'"
   echo "PASS='${mysql_db_pass}'"
   echo "DB='${mysql_db_name}'"
 } >>"/etc/openvpn/scripts/config_local.sh"
 
 cp -r "${base_path}/"{sql,client-conf} "${www}"
-cp -r "${base_path}/../"{public,bower.json,.bowerrc,js,include} "${www}"
+cp -r "${base_path}/../"{public,bower.json,.bowerrc,include} "${www}"
 
 # Configure MySQL in config.php variables
 {
   echo "<?php"
-  echo "\$db_user = '${mysql_db_user}'"
-  echo "\$db_pass = '${mysql_db_pass}'"
-  echo "\$db_name = '${mysql_db_name}'"
+  echo
+  echo "\$db_user = '${mysql_db_user}';"
+  echo "\$db_pass = '${mysql_db_pass}';"
+  echo "\$db_name = '${mysql_db_name}';"
 } >>"${www}/include/config_local.php"
 
 # Replace in the client configurations with the ip of the server and openvpn protocol
@@ -261,8 +266,13 @@ for file in "${www}"/client-conf/**/client.ovpn; do
   fi
 done
 
+cd "${www}" || exit
+
 # Install third parties
 bower --allow-root install
+
+cd "${base_path}" || exit
+
 chown -R "${user}:${group}" "${www}"
 
 printf "\033[1m\n#################################### Finish ####################################\n"

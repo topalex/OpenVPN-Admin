@@ -121,7 +121,7 @@ if (isset($_GET['installation'])) {
         // Create the initial tables
         $migrations = getMigrationSchemas();
         foreach ($migrations as $migration_value) {
-            $sql_file = __DIR__ . "/sql/schema-$migration_value.sql";
+            $sql_file = __DIR__ . "/../sql/schema-$migration_value.sql";
             try {
                 $sql = file_get_contents($sql_file);
                 $bdd->exec($sql);
@@ -143,7 +143,7 @@ if (isset($_GET['installation'])) {
         $req = $bdd->prepare('INSERT INTO admin (admin_id, admin_pass) VALUES (?, ?)');
         $req->execute([$admin_username, $hash_pass]);
 
-        rmdir(__DIR__ . '/sql');
+        rmdir(__DIR__ . '/../sql');
         $success = 'Well done, OpenVPN-Admin is installed. Redirection.';
         header('refresh:3;url=index.php?admin');
     } else {

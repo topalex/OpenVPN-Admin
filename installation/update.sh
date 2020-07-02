@@ -24,7 +24,7 @@ if [ ! -d "${www}" ]; then
   exit
 fi
 
-base_path=$(dirname "${0}")
+base_path=$(dirname "$(readlink -f "${0}")")
 
 # shellcheck disable=SC2012
 user=$(ls -l "${www}/include/config.php" | awk '{ print $3 }')

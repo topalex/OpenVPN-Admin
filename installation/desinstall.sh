@@ -74,13 +74,15 @@ rm -r "${www}"
 echo 0 >"/proc/sys/net/ipv4/ip_forward"
 sed -i '/net.ipv4.ip_forward = 1/d' '/etc/sysctl.conf'
 
-iptables -D FORWARD -i tun0 -j ACCEPT
-iptables -D FORWARD -o tun0 -j ACCEPT
-iptables -D OUTPUT -o tun0 -j ACCEPT
+# Get primary NIC device name
+primary_nic=$(ip r | grep '^default' | grep -Po '(?<=(dev )).*(?= proto)')
 
-iptables -D FORWARD -i tun0 -o eth0 -j ACCEPT
-iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
-iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
-iptables -t nat -D POSTROUTING -s 10.8.0.2/24 -o eth0 -j MASQUERADE
+# Iptables rules
+iptables -D FORWARD -i tun+ -j ACCEPT
+iptables -D FORWARD -o tun+ -j ACCEPT
+iptables -D OUTPUT -o tun+ -j ACCEPT
+
+iptables -D FORWARD -i tun+ -o "${primary_nic}" -j ACCEPT
+iptables -t nat -D POSTROUTING -o "${primary_nic}" -j MASQUERADE
 
 echo "The application has been completely removed!"
