@@ -7,7 +7,7 @@ $db_user = 'openvpn-admin';
 $db_pass = 'openvpn-admin';
 
 $management_host = 'localhost';
-$management_port = 2959;
+$management_port = 7505;
 $management_pass = 'openvpn-admin';
 $management_timeout = 30;
 
