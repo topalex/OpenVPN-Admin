@@ -187,7 +187,7 @@ cd "${base_path}" || exit
 
 # Copy certificates and the server configuration in the openvpn directory
 cp /etc/openvpn/easy-rsa/pki/{ca.crt,ta.key,issued/server.crt,private/server.key,dh.pem} "/etc/openvpn/"
-cp "${base_path}/server.conf" "/etc/openvpn/"
+cp "${base_path}/"{server.conf,management.password} "/etc/openvpn/"
 mkdir "/etc/openvpn/ccd"
 sed -i "s/port 443/port ${server_port}/" "/etc/openvpn/server.conf"
 
