@@ -30,34 +30,33 @@ if (isset(
 
     // Error ?
     if ($data && passEqual($_POST['configuration_pass'], $data['user_pass'])) {
+        if (!file_exists($tmp = __DIR__ . "/../tmp")) {
+            mkdir($tmp, 0700, true);
+        }
+
         // Thanks http://stackoverflow.com/questions/4914750/how-to-zip-a-whole-folder-using-php
-        if ($_POST['configuration_os'] == "gnu_linux") {
+        if ($_POST['configuration_os'] === "gnu_linux") {
             $conf_dir = 'gnu-linux';
-        } elseif ($_POST['configuration_os'] == "osx") {
+        } elseif ($_POST['configuration_os'] === "osx") {
             $conf_dir = 'osx';
         } else {
             $conf_dir = 'windows';
         }
-        $rootPath = realpath("$client_config_path/$conf_dir");
+        $rootPath = __DIR__ . "/$client_config_path/$conf_dir";
 
         // Initialize archive object
         $archive_base_name = "openvpn-$conf_dir";
         $archive_name = "$archive_base_name.zip";
-        $archive_path = "../tmp/$archive_name";
+        $archive_path = "$tmp/$archive_name";
         $zip = new ZipArchive();
         $zip->open($archive_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-        $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($rootPath),
-            RecursiveIteratorIterator::LEAVES_ONLY
-        );
-
-        foreach ($files as $name => $file) {
+        foreach (new DirectoryIterator($rootPath) as $name => $file) {
             // Skip directories (they would be added automatically)
             if (!$file->isDir()) {
                 // Get real and relative path for current file
                 $filePath = $file->getRealPath();
-                $relativePath = substr($filePath, strlen($rootPath) + 1);
+                $relativePath = $file->getFilename();
 
                 // Add current file to archive
                 $zip->addFile($filePath, "$archive_base_name/$relativePath");
@@ -100,7 +99,7 @@ if (isset(
 
 // --------------- INSTALLATION ---------------
 if (isset($_GET['installation'])) {
-    if (isInstalled($bdd) == true) {
+    if (isInstalled($bdd) === true) {
         $error = 'OpenVPN-admin is already installed. Redirection.';
         header('refresh:3;url=index.php?admin');
         printIndex();
