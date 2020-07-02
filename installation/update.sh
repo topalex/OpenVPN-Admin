@@ -39,13 +39,16 @@ rm -rf "${www:?}/"{index.php,grids.php,bower.json,.bowerrc,js,css,vendor}
 rm -rf "${www:?}/public/"{index.php,grids.php,js,css,vendor}
 rm -rf "${www:?}/include/"{config.php,template,html,connect.php,functions.php,grids.php,management.php}
 
-cp -r "${base_path}/"{bower.json,.bowerrc} "${www}"
-cp -r "${base_path}/public/"{index.php,grids.php,js,css} "${www}/public"
-cp -r "${base_path}/include/"{template,config.php,connect.php,functions.php,management.php} "${www}/include"
+cp -r "${base_path}/../"{bower.json,.bowerrc} "${www}"
+cp -r "${base_path}/../public/"{index.php,grids.php,js,css} "${www}/public"
+cp -r "${base_path}/../include/"{template,config.php,connect.php,functions.php,management.php} "${www}/include"
 
 cd "${www}" || exit
 
 bower --allow-root install
+
+cd "${base_path}" || exit
+
 chown -R "${user}:${group}" "${www}"
 
 if [ ! -f "/etc/openvpn/scripts/config_local.sh" ]; then
@@ -58,7 +61,9 @@ chmod +x "/etc/openvpn/scripts/"{connect.sh,disconnect.sh,login.sh}
 
 echo "Processing database migration..."
 
-php "${base_path}/migration.php"
+cp "${base_path}/migration.php" "${www}/migration.php"
+php "${www}/migration.php"
+rm -f "${www}/migration.php"
 
 echo "Database migrations done."
 

@@ -1,8 +1,7 @@
 <?php
 
-require(__DIR__ . '/../include/config.php');
-require(__DIR__ . '/../include/connect.php');
-require(__DIR__ . '/../include/functions.php');
+require(__DIR__ . '/include/connect.php');
+require(__DIR__ . '/include/functions.php');
 
 $migrations = getMigrationSchemas();
 
