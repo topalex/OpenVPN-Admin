@@ -1,21 +1,32 @@
 body {
-  padding-top: 10px;
+    padding-top: 10px;
 }
 
 .action {
-  cursor: pointer;
+    cursor: pointer;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: gray;
 }
 
 .block-grid {
-  margin: 20px;
+    margin: 20px;
 }
 
 .btn .glyphicon {
-  top: 2px;
+    top: 2px;
 }
 
 .signed {
-  margin-top: 20px;
+    margin-top: 20px;
+}
+
+.td-wide {
+    overflow-x: auto;
+    max-width: 333px;
 }
 
 /*
@@ -25,10 +36,12 @@ https://bootsnipp.com/snippets/jvP6z
     background-color: #80FF00;
     box-shadow: #7D7B80 0 -1px 6px 1px, inset #460 0 -1px 8px, #80FF00 0 3px 11px;
 }
+
 .mini-led-red, .mini-led-red-blink {
     background-color: #F00;
     box-shadow: #7D7B80 0 -1px 6px 1px, inset #600 0 -1px 8px, #F00 0 3px 11px;
 }
+
 .mini-led-gray,
 .mini-led-gray-blink,
 .mini-led-red,
@@ -49,22 +62,24 @@ https://bootsnipp.com/snippets/jvP6z
 }
 
 #config-cards textarea {
-   font-family: Courier;
+    font-family: Courier;
 }
 
 #message-stage {
-   position: fixed;
-   bottom: 0;
+    position: fixed;
+    bottom: 0;
 }
+
 #message-stage i.stauts-icon {
-   margin-right: 10px;
+    margin-right: 10px;
 }
 
 #save-config-btn.get-attention a {
-   background-color: #f0ad4e; /* orange */
-   color: white;
+    background-color: #f0ad4e; /* orange */
+    color: white;
 }
+
 #save-config-btn.saved-success a {
-   background-color: #5cb85c; /* green */
-   color: white;
+    background-color: #5cb85c; /* green */
+    color: white;
 }

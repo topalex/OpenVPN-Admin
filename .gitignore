@@ -1,2 +1,4 @@
 .phpintel
-vendor/
+public/vendor/
+include/config_local.php
+client-conf/
